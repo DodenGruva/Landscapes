@@ -336,6 +336,9 @@ uniform int lightDayBoost;
 // was never either.
 uniform float sunLightLevel;
 
+// The client's minbrightness setting, used as a floor for the lighting term below.
+uniform float minBrightness;
+
 // 1 mixes the far dissolve band toward the sky the engine actually draws. Every engine
 // shader that calls getSkyColorAt passes SkyDaylight, not DayLightStrength; the two
 // differ by a factor of 1.25 and by a night floor, so the band this shader fades terrain

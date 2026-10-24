@@ -14,6 +14,14 @@
     if (lightDayBoost == 1 && band != 1)
         light *= 1.0 + max(0.0, shadowIntensity * 2.0 - 1.66) / 1.5;
 
+    // The engine applies minbrightness to terrain lighting too. Raise each channel equally
+    // when this term falls below that luminance, before multiplying by the block's albedo.
+    float lightLuminance = dot(light, vec3(0.2126, 0.7152, 0.0722));
+    if (lightLuminance < minBrightness)
+    {
+        light += vec3(minBrightness - lightLuminance);
+    }
+
     vec4 terraColor = vec4(albedo, outAlpha);
     terraColor.rgb *= shade * light;
 

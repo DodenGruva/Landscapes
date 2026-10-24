@@ -6124,6 +6124,8 @@ public partial class LodTerrainRenderer : IRenderer
         // fogandlight.fsh, and the engine's own Use() uploads both to any program that
         // does. Only the ambient colour has no such carrier.
         prog.Uniform("rgbaAmbientIn", capi.Ambient.BlendedAmbientColor);
+        // Match the engine's brightness floor set by the client settings
+        prog.Uniform("minBrightness", Math.Max(0f, capi.Settings.Float.Get("minbrightness", 0f)));
         // 1 is exactly what the shader assumed before this correction, so the switch needs
         // no branch of its own on the GPU side.
         prog.Uniform("sunLightLevel", LightSunLevel ? SunLightLevel() : 1f);
